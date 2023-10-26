@@ -24,7 +24,7 @@
 
 ![image-20231026201934894](D:\workspace\git\Algorithmic-learning-record\assets\数据结构.png)
 
-![数据结构](D:\workspace\git\Algorithmic-learning-record\assets\数据结构-1698322849155-2.png)
+![数据结构](D:\workspace\git\Algorithmic-learning-record\assets\数据结构与算法.png)
 
 
 
