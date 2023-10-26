@@ -2,9 +2,11 @@
 
 ## 源代码目录
 
+**algorithm(源代码)**
+
 - arr 数组
 - backtrack 回溯
-- common 常见算法
+- common 
 - dp 动态规划
 - graph 图
 - linear 链表
@@ -18,15 +20,24 @@
 - IODemo.java 输入输出样例
 - Traverse.java 遍历框架
 
+**notes(笔记)**
+
+- 数据结构
+- 常见算法
+- 二叉树
+- 动态规划
+- DP游戏
+- 回溯
+- 排序
+- BFS
+- 二分搜索
+- 滑动窗口
+
 
 
 # 数据结构与算法
 
-![image-20231026201934894](D:\workspace\git\Algorithmic-learning-record\assets\数据结构.png)
-
-![数据结构](D:\workspace\git\Algorithmic-learning-record\assets\数据结构与算法.png)
-
-
+![数据结构](assets/数据结构.png)
 
 # 数据结构的基本操作
 
