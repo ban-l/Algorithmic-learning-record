@@ -6,7 +6,7 @@ import sun.misc.Queue;
 /**
  * @Auther: Ban
  * @Date: 2023/4/7 17:40
- * @Description: 深度优先搜索
+ * @Description: 图的遍历
  */
 public class Traverse {
 

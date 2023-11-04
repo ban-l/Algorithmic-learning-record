@@ -40,11 +40,11 @@ public class MinDepth {
         while (!queue.isEmpty()) {
             // 每一层节点数量
             int sz = queue.size();
-            // 从左到右遍历每一层的每个节点
+            // 同一层次，从左到右遍历每一层的每个节点
             for (int i = 0; i < sz; i++) {
                 // 出队
                 TreeNode node = queue.poll();
-                // 判断是否到达终点
+                // 判断是否到达终点，该层的某个节点 左、右子树为空 说明是最小深度
                 if (node.left == null && node.right == null) {
                     return minDepth;
                 }

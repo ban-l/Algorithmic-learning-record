@@ -33,19 +33,22 @@ public class OpenLock {
      * @param target
      * @return
      */
-    public static int openLock(String[] deadends, String target) {
+    public int openLock(String[] deadends, String target) {
         // 记录需要跳过的死亡密码
         Set<String> deadList = new HashSet<>();
         for (int i = 0; i < deadends.length; i++) {
             deadList.add(deadends[i]);
         }
+
         // 记录已经穷举过的密码，防止走回头路
         Set<String> visited = new HashSet<>();
         Queue<String> queue = new LinkedList<>();
+
         // 从起点开始启动广度优先搜索
         queue.offer("0000");
         visited.add("0000");
         int minimum = 0;
+
         // 从上到下遍历每一层(第i层 代表 转动i次 的结果)
         while (!queue.isEmpty()) {
             int sz = queue.size();
@@ -60,17 +63,17 @@ public class OpenLock {
                     return minimum;
                 }
                 // 将下一层节点放入队列
-                // 穷举出 cur字符串 转动一次 的 所有可能
+                // 共4个位置，拨动 s 一次，每个位置 可以向上、向下拨动，有 8 种可能
                 for (int j = 0; j < cur.length(); j++) {
-                    String one = plusOne(cur, j); // cur[j]向右转动一次结果
-                    if (!visited.contains(one)) {
-                        queue.offer(one);
-                        visited.add(one);
+                    String up = plusOne(cur, j); // cur[j]向上转动一次结果
+                    if (!visited.contains(up)) {
+                        queue.offer(up);
+                        visited.add(up);
                     }
-                    String two = minusOne(cur, j); // cur[j]向左转动一次结果
-                    if (!visited.contains(two)) {
-                        queue.offer(two);
-                        visited.add(two);
+                    String down = minusOne(cur, j); // cur[j]向下转动一次结果
+                    if (!visited.contains(down)) {
+                        queue.offer(down);
+                        visited.add(down);
                     }
                 }
             }
@@ -81,33 +84,33 @@ public class OpenLock {
         return -1;
     }
 
-    // s[j]向右转动一次
-    public static String plusOne(String s, int j) {
-        StringBuilder sb = new StringBuilder(s);
-        int temp = sb.charAt(j) - '0';
-        if (temp == 9) {
-            sb.setCharAt(j, '0');
+
+    // 将 s 向 上 拨动一次
+    public String plusOne(String s, int index) {
+        char[] c = s.toCharArray();
+        if (c[index] == '9') {
+            c[index] = '0';
         } else {
-            sb.setCharAt(j, (char) (temp + 1 + '0'));
+            c[index] += 1;
         }
-        return sb.toString();
+        return String.valueOf(c);
     }
 
-    // s[j]向左转动一次
-    public static String minusOne(String s, int j) {
-        StringBuilder sb = new StringBuilder(s);
-        int temp = sb.charAt(j) - '0';
-        if (temp == 0) {
-            sb.setCharAt(j, '9');
+    // 将 s 向 下 拨动一次
+    public String minusOne(String s, int index) {
+        char[] c = s.toCharArray();
+        if (c[index] == '0') {
+            c[index] = '9';
         } else {
-            sb.setCharAt(j, (char) (temp - 1 + '0'));
+            c[index] -= 1;
         }
-        return sb.toString();
+        return String.valueOf(c);
     }
 
     public static void main(String[] args) {
         String[] deadends = {"8887", "8889", "8878", "8898", "8788", "8988", "7888", "9888"};
-        int minimum = openLock(deadends, "8888");
+        OpenLock lock = new OpenLock();
+        int minimum = lock.openLock(deadends, "8888");
         System.out.println(minimum);
     }
 }
