@@ -68,18 +68,19 @@ public class PredictTheWinner_8 {
             dp[i][i].fir = nums[i]; // 先手为nums[i]
             dp[i][i].sec = 0; // 后手为0
         }
+        // (i,j) 由 (i+1,j) 和 (i,j-1)推出，根据递推关系确定遍历顺序
         // 倒着遍历数组
         for (int i = n - 2; i >= 0; i--) {
             for (int j = i + 1; j < n; j++) {
                 // 先手选择最左边 或 最右边的分数
-                int left = nums[i] + dp[i + 1][j].sec;
-                int right = nums[j] + dp[i][j - 1].sec;
+                int left = nums[i] + dp[i + 1][j].sec; // nums[i]
+                int right = nums[j] + dp[i][j - 1].sec; // nums[j]
                 // 套用状态转移方程
                 // 先手肯定会选择更大的结果，后手的选择随之改变
-                if (left > right) {
+                if (left > right) { // 左边大，先手左边
                     dp[i][j].fir = left;
                     dp[i][j].sec = dp[i + 1][j].fir;
-                } else {
+                } else { // 右边大，先先手右边
                     dp[i][j].fir = right;
                     dp[i][j].sec = dp[i][j - 1].fir;
                 }

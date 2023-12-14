@@ -2,11 +2,26 @@ package org.algorithm;
 
 /**
  * @Auther: Ban
- * @Date: 2023/11/4 14:49
  * @Description: <p>
  */
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("lbb");
+    // 私有构造器
+    private Main() {
+
+    }
+
+    // 私有静态对象变量
+    private volatile static Main m;
+
+    // 公有静态方法，返回对象变量
+    public static Main gert() {
+        if (m == null) {
+            synchronized (Main.class) {
+                if (m == null) {
+                    m = new Main();
+                }
+            }
+        }
+        return m;
     }
 }
