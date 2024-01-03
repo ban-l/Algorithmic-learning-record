@@ -5,23 +5,15 @@ package org.algorithm;
  * @Description: <p>
  */
 public class Main {
-    // 私有构造器
-    private Main() {
 
-    }
-
-    // 私有静态对象变量
-    private volatile static Main m;
-
-    // 公有静态方法，返回对象变量
-    public static Main gert() {
-        if (m == null) {
-            synchronized (Main.class) {
-                if (m == null) {
-                    m = new Main();
-                }
-            }
-        }
-        return m;
+    public static void main(String[] args) {
+        Integer i1 = new Integer(100);
+        Integer i2 = new Integer(100);
+        System.out.println(i1 == i2);
+        Integer i3 = 100;
+        Integer i4 = 100;
+        int i5 = 100;
+        System.out.println(i3 == i4);
+        System.out.println(i3 == i5);
     }
 }
