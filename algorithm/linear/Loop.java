@@ -9,14 +9,13 @@ public class Loop {
 
     /**
      * 解决方案：快慢指针
-     * slow fast
      * 如果 fast 最终遇到空指针，说明链表中没有环；
      * 如果 fast 最终和 slow 相遇，那肯定是 fast 超过了 slow 一圈，说明链表中含有环。
      *
      * @param head
      * @return
      */
-    public static boolean Loop(ListNode head) {
+    public boolean loop(ListNode head) {
         // 快慢指针初始化指向 head
         ListNode slow = head;
         ListNode fast = head;
@@ -41,7 +40,7 @@ public class Loop {
      * @param head
      * @return
      */
-    public static ListNode loop2(ListNode head) {
+    public ListNode detectCycle(ListNode head) {
         // 快慢指针初始化指向 head
         ListNode slow = head;
         ListNode fast = head;

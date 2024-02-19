@@ -13,16 +13,19 @@ public class MiddleNode {
      * <p>
      * 如果有两个中间结点，则返回第二个中间结点。
      * <p>
-     * 解法一：可以遍历两边，一遍得到链表长度 n，另一编找到中间节点
+     *
      * <p>
-     * 解法二：快慢指针
+     * 题解一：快慢指针
      * 两个工作指针 slow fast
-     * 每当慢指针 slow 前进一步，快指针 fast 就前进两步，这样，当 fast 走到链表末尾时，slow 就指向了链表中点。
+     * 慢指针 slow 前进一步，快指针 fast 前进两步，当 fast 走到链表末尾时，slow 指向链表中点。
+     * 注意，如果链表长度为偶数，即中点有两个时，返回的节点是靠后的那个节点。
+     * <p>
+     * 题解二：可以遍历两遍，第一遍得到链表长度 n，第二遍找到中间节点
      *
      * @param head
      * @return
      */
-    public static ListNode MiddleNode(ListNode head) {
+    public ListNode middleNode(ListNode head) {
         // 快慢指针初始化指向 head
         ListNode slow = head;
         ListNode fast = head;
@@ -34,5 +37,26 @@ public class MiddleNode {
         }
         // 慢指针指向中点
         return slow;
+    }
+
+    /**
+     * 题解二：可以遍历两遍，第一遍得到链表长度 n，第二遍找到中间节点
+     */
+    public ListNode middleNode2(ListNode head) {
+        ListNode p = head;
+        int n = 0;
+        // 遍历一遍，得到链表长度 n
+        while (p != null) {
+            n++;
+            p = p.next;
+        }
+        p = head;
+        // 遍历两遍，找到中间节点
+        int i = 0;
+        while (i < n / 2) {
+            i++;
+            p = p.next;
+        }
+        return p;
     }
 }

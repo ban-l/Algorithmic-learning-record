@@ -3,66 +3,67 @@ package org.algorithm.dp;
 /**
  * @Auther: Ban
  * @Date: 2023/7/5 09:37
- * @Description: 斐波纳契数列
- * 斐波那契数列：1，1，2，3，5，8，13，21，34，55，89...
+ * @Description: <p>
+ * 斐波那契数 （通常用 F(n) 表示）形成的序列称为 斐波那契数列 。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。也就是：
  * <p>
- * 解决重叠子问题
+ * F(0) = 0，F(1) = 1
+ * F(n) = F(n - 1) + F(n - 2)，其中 n > 1
+ * 给定 n ，请计算 F(n) 。
  */
 public class Fib {
 
-    public static int[] memo;
 
     /***
      * 1.暴力递归
-     *
      * 存在重叠子问题（存在大量重复计算,耗时）
-     * @param n
-     * @return
      */
-    public static int fib(int n) {
-        if (n == 2 || n == 1) {
-            return 1;
+    public int fib(int n) {
+        if (n == 1 || n == 0) {
+            return n;
         }
         return fib(n - 1) + fib(n - 2);
     }
 
     /**
-     * 2.带备忘录的递归解法
-     * <p>
-     * 每次计算出子问题答案，先记录到备忘录，再返回。
-     * <p>
-     * 每次遇到一个子问题先去「备忘录」里查一查，如果发现之前已经解决过这个问题了，直接把答案拿出来用，不要再耗时去计算了。
-     *
-     * @param n
-     * @return
+     * 2.带备忘录的递归解法 - 剪枝
+     * 每次遇到一个子问题时，先去查备忘录，存在拿出来用，否则计算子问题，答案先记录到备忘录，再返回。
      */
-    public static int m(int n) {
-        if (n == 2 || n == 1) {
-            return 1;
+    private int[] memo;
+
+    public int fib2(int n) {
+        // 备忘录初始化
+        memo = new int[n + 1];
+        // 带备忘录的递归
+        return f(n);
+    }
+
+    public int f(int n) {
+        // base case
+        if (n == 0 || n == 1) {
+            return n;
         }
         // 查备忘录，存在拿出来用，没有再计算
         if (memo[n] != 0) {
             return memo[n];
         }
         // 每次计算出子问题答案，先记录到备忘录，再返回。
-        memo[n] = m(n - 1) + m(n - 2);
+        memo[n] = f(n - 1) + f(n - 2);
         return memo[n];
     }
 
 
     /**
-     * 3.dp 数组的迭代（递推）解法
-     *
-     * @param n
-     * @return
+     * 3.动态规划 - 数组的迭代（递推）解法
      */
-    public static int dp(int n) {
-        if (n == 2 || n == 1) {
-            return 1;
+    public int dp(int n) {
+        if (n == 0 || n == 1) {
+            return n;
         }
         int[] dp = new int[n + 1];
-        dp[1] = dp[2] = 1; // base case
-        for (int i = 3; i < n + 1; i++) {
+        // base case
+        dp[0] = 0;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
             // 状态转移
             dp[i] = dp[i - 1] + dp[i - 2];
         }
@@ -71,15 +72,17 @@ public class Fib {
 
 
     /**
-     * 优化
-     * 当前状态 n 只和之前的 n-1, n-2 两个状态有关，优化 ，去掉数组，只用两个值(n-1, n-2 )
-     *
-     * @param n
-     * @return
+     * 4.空间优化
+     * 当前状态 n 只和之前的 n-1, n-2 两个状态有关，去掉数组，用两个值替代。
      */
-    public static int dp2(int n) {
-        int dp_i_1 = 1, dp_i_2 = 1; // base case
-        for (int i = 3; i < n + 1; i++) {
+    public int dp2(int n) {
+        if (n == 0 || n == 1) {
+            return n;
+        }
+        // base case
+        int dp_i_2 = 0;
+        int dp_i_1 = 1;
+        for (int i = 2; i <= n; i++) {
             // 状态转移
             int dp_i = dp_i_1 + dp_i_2;
             dp_i_2 = dp_i_1;
@@ -88,19 +91,4 @@ public class Fib {
         return dp_i_1;
     }
 
-    public static void main(String[] args) {
-        // 斐波那契数列：1，1，2，3，5，8，13，21，34，55，89...
-        int n = 9;
-
-        // System.out.println(fib(n));
-
-        // 备忘录
-        memo = new int[n + 1];
-        System.out.println(m(n));
-
-        // dp
-        System.out.println(dp(n));
-        // dp优化
-        System.out.println(dp2(n));
-    }
 }

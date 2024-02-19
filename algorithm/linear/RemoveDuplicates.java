@@ -6,7 +6,7 @@ package org.algorithm.linear;
  * @Description: 删除排序链表中的重复元素
  */
 public class RemoveDuplicates {
-    public static ListNode solution(ListNode head) {
+    public ListNode deleteDuplicates(ListNode head) {
         if (head == null) return null;
         ListNode fast = head;
         ListNode slow = head;
@@ -23,9 +23,5 @@ public class RemoveDuplicates {
         // 断开与后面重复元素的连接
         slow.next = null;
         return head;
-    }
-
-    public static void main(String[] args) {
-        int[] a = new int[]{0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
     }
 }

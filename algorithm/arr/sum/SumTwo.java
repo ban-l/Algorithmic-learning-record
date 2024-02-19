@@ -10,24 +10,22 @@ import java.util.List;
  * @Description: <p>
  * 两数之和
  * 排序+左右指针+去重
- *
  */
 public class SumTwo {
 
     /**
      * 两数之和，无重复
-     *
-     * @param numbers
-     * @param target
-     * @return
      */
-    public static int[] sum(int[] numbers, int target) {
-        // 一左一右指针
+    public int[] twoSum(int[] numbers, int target) {
+        int[] res = null;
+        // 一左、一右指针
         int left = 0, right = numbers.length - 1;
         while (left < right) {
             int sum = numbers[left] + numbers[right];
             if (sum == target) {
-                return new int[]{left + 1, right + 1};
+                // 根据题目要求，返回索引+1
+                res = new int[]{left + 1, right + 1};
+                break;
             } else if (sum > target) {
                 // sum变小
                 right--;
@@ -36,12 +34,11 @@ public class SumTwo {
                 left++;
             }
         }
-        return new int[]{-1, -1};
+        return res;
     }
 
-
     /**
-     * 两数之和，无重复
+     * 两数之和，有重复
      * 排序+双指针
      * 当 sum == target 时：左右指针跳过重复的元素
      *
@@ -49,7 +46,7 @@ public class SumTwo {
      * @param target
      * @return
      */
-    public static List<List<Integer>> twoSum(int[] numbers, int target) {
+    public static List<List<Integer>> twoSum2(int[] numbers, int target) {
         // 排序
         Arrays.sort(numbers);
         List<List<Integer>> res = new ArrayList<>();
@@ -81,7 +78,7 @@ public class SumTwo {
 //        int[] numbers = {2, 7, 11, 15};
 //        System.out.println(Arrays.toString(twoSum(numbers, 18)));
         int[] nums = {1, 1, 1, 2, 2, 3, 3};
-        List<List<Integer>> res = twoSum(nums, 4);
+        List<List<Integer>> res = twoSum2(nums, 4);
         System.out.println(res.toString());
     }
 }

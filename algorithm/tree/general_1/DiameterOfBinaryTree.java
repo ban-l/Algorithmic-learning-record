@@ -14,39 +14,56 @@ import org.algorithm.tree.TreeNode;
  */
 public class DiameterOfBinaryTree {
 
-    public static int res = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+//        preorder(root);
+        postorder(root);
+        return res;
+    }
+
+    // 记录最大直径
+    public int res = 0;
 
     /**
      * 前序遍历
-     *
-     * @param root
-     * @return
      */
-    public static void preorder(TreeNode root) {
+    public void preorder(TreeNode root) {
         if (root == null) return;
-        // 左、右子树的最大深度
-        int l = MaxDepth.maxDepth(root.left);
-        int r = MaxDepth.maxDepth(root.right);
+        // 前序遍历
+        // 先求左、右子树的最大深度
+        int l = maxDepth(root.left);
+        int r = maxDepth(root.right);
         // 当前节点的最大直径
         int nodeDiameter = l + r;
         // 更新全局最大直径
         res = Math.max(res, nodeDiameter);
-        // 前序遍历
         preorder(root.left);
         preorder(root.right);
     }
 
+    // 求节点的最大深度
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        // 左子树的最大深度
+        int l = maxDepth(root.left);
+        // 右子树的最大深度
+        int r = maxDepth(root.right);
+        // 后序遍历
+        // 取左右子树深度最大值 max，当前节点的深度为max+1
+        return Math.max(l, r) + 1;
+    }
+
+
     /**
      * 后序遍历
-     *
-     * @param root
-     * @return
      */
-    public static int maxDepth(TreeNode root) {
+    public int postorder(TreeNode root) {
         if (root == null) return 0;
         // 左、右子树的最大深度
-        int l = maxDepth(root.left);
-        int r = maxDepth(root.right);
+        int l = postorder(root.left);
+        int r = postorder(root.right);
         // 后续遍历
         // 根据左、右节点的最大深度，更新全局最大直径
         res = Math.max(res, l + r);
@@ -54,17 +71,4 @@ public class DiameterOfBinaryTree {
         return Math.max(l, r) + 1;
     }
 
-    public static void main(String[] args) {
-        int[] arr = new int[]{
-                1,
-                2, 3,
-                4, 5
-        };
-        // 创建二叉树
-        TreeNode root = TreeNode.createBinaryTree(arr, 0);
-        // 调用
-        // preorder(root);
-        maxDepth(root);
-        System.out.println(res);
-    }
 }

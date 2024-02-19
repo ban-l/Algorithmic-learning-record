@@ -19,8 +19,8 @@ public class IntersectionNode {
      * @param headB
      * @return
      */
-    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        // 施展链表双指针技巧
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        // 双指针
         ListNode pa = headA;
         ListNode pb = headB;
         while (pa != pb) {
@@ -52,11 +52,13 @@ public class IntersectionNode {
      * @param headB
      * @return
      */
-    public static ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+    public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        // 得到链表长度
         int lenA = getLen(headA);
         int lenB = getLen(headB);
         ListNode min = new ListNode(-1);
         ListNode max = new ListNode(-1);
+        // 找到较长的链表max
         if (lenA > lenB) {
             max = headA;
             min = headB;
@@ -64,11 +66,13 @@ public class IntersectionNode {
             max = headB;
             min = headA;
         }
+        // 链表max 先走 gap 步
         int gap = Math.abs(lenA - lenB);
         while (gap > 0) {
             max = max.next;
             gap--;
         }
+        // max min同时走，相遇即是交点
         while (max != min) {
             max = max.next;
             min = min.next;
@@ -83,7 +87,7 @@ public class IntersectionNode {
      * @param node
      * @return
      */
-    public static int getLen(ListNode node) {
+    public int getLen(ListNode node) {
         int len = 0;
         while (node != null) {
             len++;

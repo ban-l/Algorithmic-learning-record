@@ -22,10 +22,9 @@ public class OpenLock {
      * 典型的 BFS
      * <p>
      * 2.剪枝
-     * 1）比如说从 "0000" 拨到 "1000"，但是等从队列拿出 "1000" 时，还会拨出一个 "0000"，这样的话会产生死循环
-     * 记录已经穷举过的密码，防止走回头路
-     * 2）跳过 deadends
-     * 3）终止条件：找到 target，返回拨动的次数
+     * -1）比如说从 "0000" 拨到 "1000"，但是等从队列拿出 "1000" 时，还会拨出一个 "0000"，这样的话会产生死循环，需要记录已经穷举过的密码，防止走回头路
+     * -2）跳过 deadends
+     * -3）终止条件：找到 target，返回拨动的次数
      * <p>
      * 3.到达终点
      *
@@ -110,7 +109,7 @@ public class OpenLock {
     public static void main(String[] args) {
         String[] deadends = {"8887", "8889", "8878", "8898", "8788", "8988", "7888", "9888"};
         OpenLock lock = new OpenLock();
-        int minimum = lock.openLock(deadends, "8888");
+        int minimum = lock.openLock(deadends, "8805");
         System.out.println(minimum);
     }
 }

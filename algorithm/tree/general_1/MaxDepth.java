@@ -5,10 +5,10 @@ import org.algorithm.tree.TreeNode;
 /**
  * @Auther: ban
  * @Date: 2022/11/9 16:00
- * @Description:二叉树最大深度 <p>
- * 回溯法
- * <p>
- * 动态规划法
+ * @Description: <p>
+ * 二叉树最大深度
+ * 1.回溯法
+ * 2.动态规划法
  */
 public class MaxDepth {
     static int res = 0;
